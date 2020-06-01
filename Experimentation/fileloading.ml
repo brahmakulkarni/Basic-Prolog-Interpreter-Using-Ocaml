@@ -15,8 +15,9 @@ let save_to_txt s filename =
 	fprintf write_file "%s\n" s;
 	close_out write_file 
 
-let _ = 
-	let filename = extract_filename "[expt]" in 
+let _ =
+	let input = read_line () in  
+	let filename = extract_filename input in 
 	let readcontent = load_file filename in 
 	let len = String.length filename in 
 	let out_filename = ((String.sub filename 0 (len-3)) ^ ".txt") in 
