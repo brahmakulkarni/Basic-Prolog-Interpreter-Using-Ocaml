@@ -115,15 +115,4 @@ let unify_pair a = begin match a with x,y -> ignore((unifier x y)); () end
 let test_all () = 
   List.iter unify_pair tests 
 
-let _ = test_all ()
-(* 
-let d = Hashtbl.create 1000 in 
-let rec f counter  = 
-  if(counter > 5) then ()
-  else
-  begin
-    Hashtbl.add d counter (counter+1);
-    f (counter+1)
-  end
-in f 0;
-Hashtbl.iter (fun x y -> Printf.printf "%d -> %d \n" x y) d *)
+(* let _ = test_all () *)
