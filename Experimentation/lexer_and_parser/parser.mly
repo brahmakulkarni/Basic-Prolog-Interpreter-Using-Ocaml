@@ -13,7 +13,7 @@ open Expr_type
 %% /* Grammar rules and actions follow */
 ;
   main: 	
-		| expr EOL						{ $1						}
+		| expr						{ $1						}
 
 	const:		
 		| NUM							{ CONST(NUM($1)) 			}
