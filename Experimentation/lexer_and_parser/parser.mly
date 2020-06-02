@@ -1,28 +1,28 @@
 %{
+open Expr_type
 %}
 
-(* %token FUNC *)
 %token EOL EOF LPAREN RPAREN COMMA EMPTY
 %token <string> VAR
 %token <string> IDEN
 %token <int> NUM
 
 %start main
-%typr <Exp_type.exp_type> main
+%type <Expr_type.expr> main
 
 %% /* Grammar rules and actions follow */
 ;
-  	main 		: expr EOL		{ $1						}
+  	main 		: expr EOL						{ $1						}
 
-	const		: NUM			{ Expr_type.CONST(NUM($1)) 	}
-				| IDEN			{ Expr_type.CONST(IDEN($1)) }
+	const		: NUM							{ CONST(NUM($1)) 			}
+				| IDEN							{ CONST(IDEN($1)) 			}
 
-	expr_list 	: expr
-				| expr COMMA expr_list 
+	expr_list 	: expr							{ expr						}
+				| expr COMMA expr_list 			{ expr list					}
 
-  	expr 		: VAR
-		 		| const
-		 		| const LPAREN   RPAREN
+  	expr 		: VAR							{ VAR($1)					}
+		 		| const							{ CONST($1)
+		 		| const LPAREN expr_list RPAREN { FUNC($1, $3) 				}
 
 
 

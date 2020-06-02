@@ -15,10 +15,7 @@ let iden = (lowerCase alphaNumeric*)
 let lparen = '('
 let rparen = ')'
 let comma = ','
-let empty = ''
-let arg = (variable|constant)
-let withinParen = arg (comma arg)+
-let functor = constant lparen withinParen rparen
+let empty = ""
 
 rule scan = parse
   |	[' ' '\t']		{scan lexbuf} (*skips blanks*)
@@ -29,7 +26,7 @@ rule scan = parse
   | integer as i 	{Parser.NUM(int_of_string i)}
   | iden as c		{Parser.IDEN(c)}
   |	lparen			{Parser.LPAREN}
-  | rparen			{Praser.RPAREN}
+  | rparen			{Parser.RPAREN}
   | eof				{Parser.EOF}
   |	_				{scan lexbuf}
 (*| integer as i    {Parser.NUM(int_of_string i)} *)
