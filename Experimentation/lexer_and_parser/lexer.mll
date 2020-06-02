@@ -11,25 +11,29 @@ let underScore = '_'
 let alphaNumeric = upperCase | lowerCase | underScore | digit
 
 let variable = upperCase alphaNumeric*
-let constant = lowerCase alphaNumeric*
+let iden = (lowerCase alphaNumeric*)
 let lparen = '('
 let rparen = ')'
 let comma = ','
+let empty = ''
 let arg = (variable|constant)
 let withinParen = arg (comma arg)+
 let functor = constant lparen withinParen rparen
 
 rule scan = parse
-  |	[' ' '\t']	{scan lexbuf} (*skips blanks*)
-  | 	['\n']		{EOL}
-(*  |	integer as i 	{Parser.NUM(int_of_string i)} *)
-  | 	variable as v 	{Parser.VAR(v)}
-  | 	constant as c 	{Parser.CONST(c)}
-  |	'('		{LPAREN}
-  | 	')'		{RPAREN}
-  | 	eof		{Parser.EOF}
-  |	functor		{Parser.FUNC}
-  |	_		{scan lexbuf}
+  |	[' ' '\t']		{scan lexbuf} (*skips blanks*)
+  | ['\n']			{Parser.EOL}
+  | comma 			{Parser.COMMA}
+  | empty			{Parser.EMPTY}
+  | variable as v 	{Parser.VAR(v)}
+  | integer as i 	{Parser.NUM(int_of_string i)}
+  | iden as c		{Parser.IDEN(c)}
+  |	lparen			{Parser.LPAREN}
+  | rparen			{Praser.RPAREN}
+  | eof				{Parser.EOF}
+  |	_				{scan lexbuf}
+(*| integer as i    {Parser.NUM(int_of_string i)} *)
+(*  |   functor     {Parser.FUNC} *)
 
 {
 }
