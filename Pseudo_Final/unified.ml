@@ -10,7 +10,7 @@ type expr =
 type pair_expr = expr * expr
 
 let tests = [
-  CONST ( IDEN ( "mia" ) ) , CONST ( IDEN ( "mia" ) ) ;
+  CONST(IDEN("mia")) , CONST(IDEN("mia"));
   CONST ( IDEN ( "mia" ) ) , CONST ( IDEN ( "vincent" ) ) ;
   VAR ( "X" ) , VAR ( "Y" ) ;
   VAR ( "X" ) , CONST ( IDEN ( "mia" ) ) ;
