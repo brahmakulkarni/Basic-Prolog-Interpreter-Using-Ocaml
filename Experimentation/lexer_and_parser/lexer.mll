@@ -11,7 +11,7 @@ let underScore = '_'
 let alphaNumeric = upperCase | lowerCase | underScore | digit
 
 let variable = upperCase alphaNumeric*
-let constant = (lowerCase alphaNumeric*) | integer
+let iden = (lowerCase alphaNumeric*)
 let lparen = '('
 let rparen = ')'
 let comma = ','
@@ -26,7 +26,8 @@ rule scan = parse
   | comma 			{Parser.COMMA}
   | empty			{Parser.EMPTY}
   | variable as v 	{Parser.VAR(v)}
-  | constant as c 	{Parser.CONST(c)}
+  | integer as i 	{Parser.NUM(int_of_string i)}
+  | iden as c		{Parser.IDEN(c)}
   |	lparen			{Parser.LPAREN}
   | rparen			{Praser.RPAREN}
   | eof				{Parser.EOF}
