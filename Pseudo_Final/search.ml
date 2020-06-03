@@ -31,6 +31,13 @@ type rule =
   | HEAD of Unified.expr
   | NODE of Unified.expr * right
 
+let rec right_to_list right = 
+  match right with 
+  | LEAF(x) -> [x]
+  | OR(x,y) -> (List.append x y)
+  | AND(x,y) -> (List.append x y)
+  | NOT(x) -> [x]
+
 let rec string_of_right right = 
   match right with
   | LEAF(x) -> (Unified.string_of_expr x)
@@ -82,7 +89,72 @@ and replace_list list1 var value =
   | [] -> []
   | h::t -> 
     (replace_var_expr h var value) :: (replace_list t var value)
-  
+
+let rec replace_var_hash expr var_expr = 
+  match expr with
+  | VAR(x) -> 
+    if((Hashtbl.find_opt x) = None) then VAR(x) else (Hashtbl.find x)
+  | CONST(x) -> CONST(x)
+  | FUNC(x,y) -> FUNC(x,(replace_var_hash_list y var_expr))
+and replace_var_hash_list list1 var_expr = 
+  match list1 with
+  | [] -> []
+  | h::t -> 
+    (replace_var_hash h) :: (replace_var_hash_list t var_expr)
+
+let rec has_var expr = 
+  match expr with 
+  | VAR(x) -> true
+  | CONST(x) -> false
+  | FUNC(x,y) -> (has_list_vat expr y)
+and has_list_var expr list1 = 
+  match list1 with
+  | [] -> false
+  | h :: t -> 
+    if (has_var h) true
+    else (has_list_var expr t)
+
+
+
+let search_rule_list query goal_list rules = 
+  let search_hash = Hashtbl.create 1000 in
+  match rules with 
+  | [] -> false,search_hash
+  | h :: t ->
+    match h with
+    | HEAD(x) ->
+      let flag,unified_hash = (Unified.unifier x query) in
+      if (flag = false) then (search_list query t) 
+      else 
+        let new_goal_list = (replace_var_hash_list goal_list unified_hash) in
+        (search_goal_list new_goal_list rules )
+        
+      (* else flag,unified_hash *)
+    | NODE(x,y) ->
+      let flag,unified_hash = (Unified.unifier x query) in
+      if (flag = false) then (search_list query t) 
+      else 
+        let flag_tail,tail_hash = (search_right right rules) in
+        if(flag_tail = false) then (search_list query t)
+        else
+          let new_head = (replace_var_hash x tail_hash) in
+          let new_flag,new_unified_hash = (Unified.unifier query new_head) in
+          if(new_flag = false) then Printf.printf "DUMB SHITE ERROR. THIS SHOULD NEVER OCCUR\n";
+          new_flag,new_unified_hash
+
+and search_goal_list goal_list rules = 
+  match goal_list with 
+  | [] -> 
+  | h :: t -> (search_rule_list h t rules)
+and search_right right rules = 
+  let goal_list = (right_to_list right) in
+  search_goal_list goal_list rules
+
+(* search_list query rules 
+seasrc *)
+(* let rec search_tail right rules = 
+  match rules with
+   *)
 (* let rec solve_query query rules = 
 
 
