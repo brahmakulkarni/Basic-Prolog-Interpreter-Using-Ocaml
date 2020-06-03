@@ -2,8 +2,8 @@ open Printf
 
 let extract_filename s =
 	let len = String.length s in  
-        (* let extract_within = String.sub s 0 len in *)
-        let filename = (s ^ ".pl") in
+        let extract_within = String.sub s 1 (len-2) in
+        let filename = (extract_within ^ ".pl") in
 	filename
 
 let load_file s =
@@ -40,7 +40,9 @@ let test_file () =
   let filename = extract_filename input in 
   let readcontent = load_file filename in 
   let test_list = String.split_on_char '\n' readcontent in 
-  List.iter print_endline test_list; List.iter test_parser test_list
+  List.iter print_endline test_list; 
+  print_endline " ";
+  List.iter test_parser test_list
 
 (* let _ = test_all () *)
 let _ = test_file ()
