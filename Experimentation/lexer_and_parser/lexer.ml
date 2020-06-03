@@ -166,7 +166,7 @@ and __ocaml_lex_scan_rec lexbuf __ocaml_lex_state =
 
   | 5 ->
 # 29 "lexer.mll"
-              (Parser.IMPLIES				)
+              (print_endline "IMPLIES SENT"; Parser.IMPLIES				)
 # 171 "lexer.ml"
 
   | 6 ->
@@ -232,4 +232,5 @@ let
 # 39 "lexer.mll"
  
 
-# 236 "lexer.ml"
+
+# 237 "lexer.ml"

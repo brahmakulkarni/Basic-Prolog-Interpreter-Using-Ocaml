@@ -26,7 +26,7 @@ rule scan = parse
   | comma 			{Parser.COMMA				}
   | or_op			{Parser.OR					}
   | not_op			{Parser.NOT					}
-  | implies			{Parser.IMPLIES				}
+  | implies			{print_endline "IMPLIES SENT"; Parser.IMPLIES				}
   | empty			{Parser.EMPTY				}
   | variable as v 	{Parser.VAR(v)				}
   | integer as i 	{Parser.NUM(int_of_string i)}
@@ -37,4 +37,5 @@ rule scan = parse
   |	_				{scan lexbuf				}
 
 {
+
 }

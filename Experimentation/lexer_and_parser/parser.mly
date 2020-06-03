@@ -14,6 +14,8 @@ open Expr_type
 ;
   	main: 	
 		| expr							{ HEAD($1)					}
+    | expr IMPLIES right            { print_endline "implies encountered"; NODE($1,$3)               }
+
 
 	const:		
 		| NUM							{ NUM($1) 					}
@@ -26,8 +28,8 @@ open Expr_type
         | NOT right                     { Expr_type.NOT($2)         }
 
     rule:
-        | expr                          { HEAD($1)                  }
         | expr IMPLIES right            { print_endline "implies encountered"; NODE($1,$3)               }
+        | expr                          { print_endline "head encountered";HEAD($1)                  }
 
   	expr: 
 		| VAR							{ VAR($1)					}
