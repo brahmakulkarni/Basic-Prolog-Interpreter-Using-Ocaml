@@ -37,19 +37,19 @@ let yytransl_block = [|
 
 let yylhs = "\255\255\
 \001\000\001\000\004\000\004\000\003\000\003\000\003\000\003\000\
-\005\000\005\000\002\000\002\000\002\000\006\000\006\000\000\000"
+\002\000\002\000\002\000\005\000\005\000\000\000"
 
 let yylen = "\002\000\
 \001\000\003\000\001\000\001\000\001\000\003\000\003\000\002\000\
-\003\000\001\000\001\000\001\000\004\000\001\000\003\000\002\000"
+\001\000\001\000\004\000\001\000\003\000\002\000"
 
 let yydefred = "\000\000\
-\000\000\000\000\011\000\000\000\003\000\016\000\000\000\012\000\
+\000\000\000\000\009\000\000\000\003\000\014\000\000\000\010\000\
 \000\000\000\000\000\000\000\000\000\000\005\000\000\000\000\000\
-\013\000\000\000\000\000\000\000\015\000\000\000\000\000"
+\011\000\000\000\000\000\000\000\013\000\000\000\000\000"
 
 let yydgoto = "\002\000\
-\006\000\014\000\015\000\008\000\000\000\012\000"
+\006\000\014\000\015\000\008\000\012\000"
 
 let yysindex = "\006\000\
 \002\255\000\000\000\000\015\255\000\000\000\000\011\255\000\000\
@@ -62,13 +62,13 @@ let yyrindex = "\000\000\
 \000\000\024\000\000\000\000\000\000\000\025\000\026\000"
 
 let yygindex = "\000\000\
-\000\000\255\255\246\255\000\000\000\000\011\000"
+\000\000\255\255\246\255\000\000\011\000"
 
 let yytablesize = 265
 let yytable = "\007\000\
 \004\000\013\000\018\000\003\000\004\000\005\000\001\000\011\000\
 \022\000\023\000\003\000\004\000\005\000\019\000\011\000\020\000\
-\009\000\016\000\010\000\017\000\001\000\014\000\002\000\008\000\
+\009\000\016\000\010\000\017\000\001\000\012\000\002\000\008\000\
 \007\000\006\000\021\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -161,7 +161,7 @@ let yyact = [|
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'expr) in
     Obj.repr(
 # 16 "parser.mly"
-               ( HEAD(_1)					)
+               ( Expr_type.HEAD(_1)		)
 # 166 "parser.ml"
                : Expr_type.rule))
 ; (fun __caml_parser_env ->
@@ -169,28 +169,28 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'right) in
     Obj.repr(
 # 17 "parser.mly"
-                                    ( print_endline "implies encountered"; NODE(_1,_3)               )
+                                     ( Expr_type.NODE(_1,_3)     )
 # 174 "parser.ml"
                : Expr_type.rule))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : int) in
     Obj.repr(
 # 21 "parser.mly"
-              ( NUM(_1) 					)
+              ( Expr_type.NUM(_1) 		)
 # 181 "parser.ml"
                : 'const))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
     Obj.repr(
 # 22 "parser.mly"
-               ( IDEN(_1)					)
+               ( Expr_type.IDEN(_1)		)
 # 188 "parser.ml"
                : 'const))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'expr) in
     Obj.repr(
 # 25 "parser.mly"
-                                        ( LEAF(_1)                  )
+                                        ( Expr_type.LEAF(_1)        )
 # 195 "parser.ml"
                : 'right))
 ; (fun __caml_parser_env ->
@@ -206,7 +206,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'right) in
     Obj.repr(
 # 27 "parser.mly"
-                                        ( AND(_1, _3)               )
+                                        ( Expr_type.AND(_1, _3)     )
 # 211 "parser.ml"
                : 'right))
 ; (fun __caml_parser_env ->
@@ -217,58 +217,43 @@ let yyact = [|
 # 218 "parser.ml"
                : 'right))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 2 : 'expr) in
-    let _3 = (Parsing.peek_val __caml_parser_env 0 : 'right) in
-    Obj.repr(
-# 31 "parser.mly"
-                                        ( print_endline "implies encountered"; NODE(_1,_3)               )
-# 226 "parser.ml"
-               : 'rule))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : 'expr) in
-    Obj.repr(
-# 32 "parser.mly"
-                                        ( print_endline "head encountered";HEAD(_1)                  )
-# 233 "parser.ml"
-               : 'rule))
-; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
     Obj.repr(
-# 35 "parser.mly"
-              ( VAR(_1)					)
-# 240 "parser.ml"
+# 31 "parser.mly"
+              ( Expr_type.VAR(_1)			)
+# 225 "parser.ml"
                : 'expr))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'const) in
     Obj.repr(
-# 36 "parser.mly"
-                ( CONST(_1)					)
-# 247 "parser.ml"
+# 32 "parser.mly"
+                ( Expr_type.CONST(_1)		)
+# 232 "parser.ml"
                : 'expr))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 3 : string) in
     let _3 = (Parsing.peek_val __caml_parser_env 1 : 'expr_list) in
     Obj.repr(
-# 37 "parser.mly"
-                                  ( print_endline "Functor encountered"; FUNC(_1, _3) 				)
-# 255 "parser.ml"
+# 33 "parser.mly"
+                                  ( Expr_type.FUNC(_1, _3) 	)
+# 240 "parser.ml"
                : 'expr))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'expr) in
     Obj.repr(
-# 40 "parser.mly"
+# 36 "parser.mly"
                ( [_1]						)
-# 262 "parser.ml"
+# 247 "parser.ml"
                : 'expr_list))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 2 : 'expr) in
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expr_list) in
     Obj.repr(
-# 41 "parser.mly"
+# 37 "parser.mly"
                             ( _1 :: _3					)
-# 270 "parser.ml"
+# 255 "parser.ml"
                : 'expr_list))
-(* Entry main *)
+(* Entry rule *)
 ; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))
 |]
 let yytables =
@@ -288,5 +273,5 @@ let yytables =
     Parsing.error_function=parse_error;
     Parsing.names_const=yynames_const;
     Parsing.names_block=yynames_block }
-let main (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
+let rule (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
    (Parsing.yyparse yytables 1 lexfun lexbuf : Expr_type.rule)
