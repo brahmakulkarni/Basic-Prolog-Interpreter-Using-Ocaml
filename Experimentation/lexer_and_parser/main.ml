@@ -7,12 +7,13 @@ let tss = [
   "vertical(line(point(1, 2), point(1, 3)))";
   "jealous(X,Y) :- loves(X,Z), loves(Y,Z)";
   "brahma :- kulkarni";
+  "happy(X) :- !sad(X)";
 ]
 
 let test_parser s =
   try
     let lexbuf = Lexing.from_string s in
-    let result = (Parser.main Lexer.scan lexbuf) in
+    let result = (Parser.rule Lexer.scan lexbuf) in
     Printf.printf "%s\n" (Expr_type.string_of_rule result)
   with Parsing.Parse_error ->
     Printf.printf "%s -> false\n" s

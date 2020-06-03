@@ -7,34 +7,30 @@ open Expr_type
 %token <string> IDEN
 %token <int> NUM
 
-%start main
-%type <Expr_type.rule> main
+%start rule
+%type <Expr_type.rule> rule
 
 %% /* Grammar rules and actions follow */
 ;
-  	main: 	
-		| expr							{ HEAD($1)					}
-    | expr IMPLIES right            { print_endline "implies encountered"; NODE($1,$3)               }
+  	rule: 	
+		| expr							{ Expr_type.HEAD($1)		}
+    	| expr IMPLIES right            { Expr_type.NODE($1,$3)     }
 
 
 	const:		
-		| NUM							{ NUM($1) 					}
-		| IDEN							{ IDEN($1)					}		
+		| NUM							{ Expr_type.NUM($1) 		}
+		| IDEN							{ Expr_type.IDEN($1)		}		
 
 	right:
-        | expr                          { LEAF($1)                  }
+        | expr                          { Expr_type.LEAF($1)        }
         | right OR right                { Expr_type.OR($1, $3)      }   
-        | right COMMA right             { AND($1, $3)               }
+        | right COMMA right             { Expr_type.AND($1, $3)     }
         | NOT right                     { Expr_type.NOT($2)         }
 
-    rule:
-        | expr IMPLIES right            { print_endline "implies encountered"; NODE($1,$3)               }
-        | expr                          { print_endline "head encountered";HEAD($1)                  }
-
   	expr: 
-		| VAR							{ VAR($1)					}
-		| const							{ CONST($1)					}
-		| IDEN LPAREN expr_list RPAREN 	{ print_endline "Functor encountered"; FUNC($1, $3) 				}
+		| VAR							{ Expr_type.VAR($1)			}
+		| const							{ Expr_type.CONST($1)		}
+		| IDEN LPAREN expr_list RPAREN 	{ Expr_type.FUNC($1, $3) 	}
 
 	expr_list: 
 		| expr							{ [$1]						}

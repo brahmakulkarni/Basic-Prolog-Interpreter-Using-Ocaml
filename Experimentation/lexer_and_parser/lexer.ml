@@ -141,37 +141,37 @@ and __ocaml_lex_scan_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
 # 24 "lexer.mll"
-                (scan lexbuf				)
+                ( scan lexbuf					)
 # 146 "lexer.ml"
 
   | 1 ->
 # 25 "lexer.mll"
-             (Parser.EOL					)
+             ( Parser.EOL					)
 # 151 "lexer.ml"
 
   | 2 ->
 # 26 "lexer.mll"
-             (Parser.COMMA				)
+             ( Parser.COMMA					)
 # 156 "lexer.ml"
 
   | 3 ->
 # 27 "lexer.mll"
-            (Parser.OR					)
+            ( Parser.OR						)
 # 161 "lexer.ml"
 
   | 4 ->
 # 28 "lexer.mll"
-             (Parser.NOT					)
+             ( Parser.NOT					)
 # 166 "lexer.ml"
 
   | 5 ->
 # 29 "lexer.mll"
-              (print_endline "IMPLIES SENT"; Parser.IMPLIES				)
+              ( Parser.IMPLIES				)
 # 171 "lexer.ml"
 
   | 6 ->
 # 30 "lexer.mll"
-            (Parser.EMPTY				)
+            ( Parser.EMPTY					)
 # 176 "lexer.ml"
 
   | 7 ->
@@ -181,7 +181,7 @@ let
 # 182 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
 # 31 "lexer.mll"
-                   (Parser.VAR(v)				)
+                   ( Parser.VAR(v)					)
 # 186 "lexer.ml"
 
   | 8 ->
@@ -191,7 +191,7 @@ let
 # 192 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
 # 32 "lexer.mll"
-                  (Parser.NUM(int_of_string i))
+                  ( Parser.NUM(int_of_string i)	)
 # 196 "lexer.ml"
 
   | 9 ->
@@ -201,17 +201,17 @@ let
 # 202 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
 # 33 "lexer.mll"
-               (Parser.IDEN(c)				)
+               ( Parser.IDEN(c)				)
 # 206 "lexer.ml"
 
   | 10 ->
 # 34 "lexer.mll"
-             (Parser.LPAREN				)
+             ( Parser.LPAREN					)
 # 211 "lexer.ml"
 
   | 11 ->
 # 35 "lexer.mll"
-             (Parser.RPAREN				)
+             ( Parser.RPAREN					)
 # 216 "lexer.ml"
 
   | 12 ->
