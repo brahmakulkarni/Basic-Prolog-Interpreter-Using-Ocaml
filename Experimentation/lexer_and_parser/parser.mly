@@ -16,8 +16,8 @@ open Expr_type
 		| expr							{ HEAD($1)					}
 
 	const:		
-		| NUM							{ CONST(NUM($1)) 			}
-		| IDEN							{ CONST(IDEN($1)) 			}
+		| NUM							{ NUM($1) 					}
+		| IDEN							{ IDEN($1)					}		
 
 	right:
         | expr                          { LEAF($1)                  }
@@ -27,12 +27,12 @@ open Expr_type
 
     rule:
         | expr                          { HEAD($1)                  }
-        | expr IMPLIES right            { NODE($1,$3)               }
+        | expr IMPLIES right            { print_endline "implies encountered"; NODE($1,$3)               }
 
   	expr: 
 		| VAR							{ VAR($1)					}
-		| const							{ $1						}
-		| IDEN LPAREN expr_list RPAREN 	{ FUNC($1, $3) 				}
+		| const							{ CONST($1)					}
+		| IDEN LPAREN expr_list RPAREN 	{ print_endline "Functor encountered"; FUNC($1, $3) 				}
 
 	expr_list: 
 		| expr							{ [$1]						}

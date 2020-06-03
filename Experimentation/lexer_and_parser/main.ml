@@ -1,11 +1,12 @@
 let tss = [
-  "1"        ;
+  "1"        ; 
   "hello"    ;
   "X";
   "man(brahma)" ; (* <error> *)
   "loves(rathin,ram)"    ;
   "vertical(line(point(1, 2), point(1, 3)))";
-  "jealous(X,Y) :- loves(X,Z), loves(Y,Z)"
+  "jealous(X,Y) :- loves(X,Z), loves(Y,Z)";
+  "brahma :- kulkarni";
 ]
 
 let test_parser s =

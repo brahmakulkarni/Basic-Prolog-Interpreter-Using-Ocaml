@@ -17,7 +17,7 @@ let rparen = ')'
 let comma = ',' (* also used for 'and' *)
 let or_op = ';'
 let not_op = '!'
-let implies = ":-"
+let implies = [':']['-']
 let empty = ""
 
 rule scan = parse

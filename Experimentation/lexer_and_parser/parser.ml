@@ -163,14 +163,14 @@ let yyact = [|
     let _1 = (Parsing.peek_val __caml_parser_env 0 : int) in
     Obj.repr(
 # 19 "parser.mly"
-              ( CONST(NUM(_1)) 			)
+              ( NUM(_1) 					)
 # 168 "parser.ml"
                : 'const))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
     Obj.repr(
 # 20 "parser.mly"
-               ( CONST(IDEN(_1)) 			)
+               ( IDEN(_1)					)
 # 175 "parser.ml"
                : 'const))
 ; (fun __caml_parser_env ->
@@ -215,7 +215,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'right) in
     Obj.repr(
 # 30 "parser.mly"
-                                        ( NODE(_1,_3)               )
+                                        ( print_endline "implies encountered"; NODE(_1,_3)               )
 # 220 "parser.ml"
                : 'rule))
 ; (fun __caml_parser_env ->
@@ -229,7 +229,7 @@ let yyact = [|
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'const) in
     Obj.repr(
 # 34 "parser.mly"
-                ( _1						)
+                ( CONST(_1)					)
 # 234 "parser.ml"
                : 'expr))
 ; (fun __caml_parser_env ->
@@ -237,7 +237,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 1 : 'expr_list) in
     Obj.repr(
 # 35 "parser.mly"
-                                  ( FUNC(_1, _3) 				)
+                                  ( print_endline "Functor encountered"; FUNC(_1, _3) 				)
 # 242 "parser.ml"
                : 'expr))
 ; (fun __caml_parser_env ->
