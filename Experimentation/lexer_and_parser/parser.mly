@@ -19,6 +19,16 @@ open Expr_type
 		| NUM							{ CONST(NUM($1)) 			}
 		| IDEN							{ CONST(IDEN($1)) 			}
 
+	right:
+        | expr                          { LEAF($1)                  }
+        | right OR right                { Expr_type.OR($1, $3)      }   
+        | right COMMA right             { AND($1, $3)               }
+        | NOT right                     { Expr_type.NOT($2)         }
+
+    rule:
+        | expr                          { HEAD($1)                  }
+        | expr IMPLIES right            { NODE($1,$3)               }
+
   	expr: 
 		| VAR							{ VAR($1)					}
 		| const							{ $1						}
@@ -27,16 +37,6 @@ open Expr_type
 	expr_list: 
 		| expr							{ [$1]						}
 		| expr COMMA expr_list 			{ $1 :: $3					}
-
-	right:
-        | expr                          { LEAF($1)                  }
-        | right OR right                { Expr_type.OR($1, $3)      }
-        | right COMMA right             { AND($1, $3)               }
-        | NOT right                     { Expr_type.NOT($2)         }
-
-    rule:
-        | expr                          { HEAD($1)                  }
-        | expr IMPLIES right            { NODE($1,$3)               }
 
 
 
