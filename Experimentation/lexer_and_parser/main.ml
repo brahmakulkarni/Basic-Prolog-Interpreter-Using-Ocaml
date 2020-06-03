@@ -1,3 +1,16 @@
+open Printf
+
+let extract_filename s =
+	let len = String.length s in  
+        (* let extract_within = String.sub s 0 len in *)
+        let filename = (s ^ ".pl") in
+	filename
+
+let load_file s =
+	let input_file = open_in s in 
+	let file_content = really_input_string input_file (in_channel_length input_file) in file_content
+
+
 let tss = [
   "1"        ; 
   "hello"    ;
@@ -22,4 +35,12 @@ let test_parser s =
 let test_all () =
   List.iter test_parser tss
 
-let _ = test_all ()
+let test_file () =
+  let input = print_string "> ";read_line () in 
+  let filename = extract_filename input in 
+  let readcontent = load_file filename in 
+  let test_list = String.split_on_char '\n' readcontent in 
+  List.iter print_endline test_list; List.iter test_parser test_list
+
+(* let _ = test_all () *)
+let _ = test_file ()
