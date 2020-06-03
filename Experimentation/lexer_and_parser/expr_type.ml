@@ -41,5 +41,3 @@ let rec string_of_rule rule =
 	match rule with
   	| HEAD(x) -> (string_of_expr x)
   	| NODE(x,y) -> (string_of_expr x) ^ " :- " ^ (string_of_right y)
-
-(* let _ = print_endline (string_of_exp "Hello") *)

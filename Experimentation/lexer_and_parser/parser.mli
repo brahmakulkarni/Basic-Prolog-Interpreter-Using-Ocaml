@@ -12,5 +12,5 @@ type token =
   | IDEN of (string)
   | NUM of (int)
 
-val main :
+val rule :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Expr_type.rule
