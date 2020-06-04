@@ -30,7 +30,7 @@ let rec string_of_rule rule =
   | NODE(x,y) ->
     (Unified.string_of_expr x) ^ " :- " ^ (string_of_right y) 
 
-let rules = [
+let rules1 = [
   HEAD(FUNC("f",[CONST(IDEN("a"))])) ;
   HEAD(FUNC("f",[CONST(IDEN("b"))])) ;
 
@@ -42,10 +42,24 @@ let rules = [
   NODE(FUNC("k",[VAR("X")]),AND(AND(LEAF(FUNC("f",[VAR("X")])),LEAF(FUNC("g",[VAR("X")]))),LEAF(FUNC("h",[VAR("X")])))) ;
 ]
 
+let rules2 = [
+  HEAD(FUNC("loves",[CONST(IDEN("vincent"));CONST(IDEN("mia"))])) ;
+  HEAD(FUNC("loves",[CONST(IDEN("marcellus"));CONST(IDEN("mia"))])) ;
+
+  NODE(FUNC("jealous",[VAR("A");VAR("B")]),AND(LEAF(FUNC("loves",[VAR("A");VAR("C")])),LEAF(FUNC("loves",[VAR("B");VAR("C")])))) ;
+]
+
 (* let search_rules query rules =  *)
 
+let queries1 = [
+  FUNC("k",[VAR("Y")]) ;
+  FUNC("g",[CONST(IDEN("C"))]) ;
+  VAR("Y") ;
+]
 
-let query = FUNC("k",[VAR("Y")])
+let queries2 = [
+  FUNC("jealous",[VAR("X");VAR("Y")]) ;
+]
 
 (* Variable mapping (Comes from unification)
 Query variables <-> Head variables
@@ -108,7 +122,7 @@ let rec search_rule_list query goal_list sub_rules rules =
       if (flag = false) then (search_rule_list query goal_list t rules) 
       else 
         let flag_tail,tail_hash = (search_right tail empty_hash rules rules) in
-        Printf.printf "Query: %s Head: %s Tail: %s flag_tail: %b\n" (string_of_expr query) (string_of_expr head) (string_of_right tail) flag_tail;
+        (* Printf.printf "Query: %s Head: %s Tail: %s flag_tail: %b\n" (string_of_expr query) (string_of_expr head) (string_of_right tail) flag_tail; *)
         if(flag_tail = false) then (search_rule_list query goal_list t rules)
         else
           let new_head = (replace_var_hash head tail_hash) in
@@ -139,11 +153,16 @@ and search_right right empty_hash sub_rules rules =
   let goal_list = (right_to_list right) in
   search_goal_list goal_list empty_hash rules rules
 
+let print_test query = 
+  Printf.printf "Query: %s\n" (string_of_expr query);
+  let flag,hash = (search_rule_list query [] rules2 rules2) in 
+  Hashtbl.iter (fun x y -> if((has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
+  Printf.printf "%b\n" flag;
+  Printf.printf "\n\n-------------------------\n\n"
 
 let test_rule_list () = 
-  let flag,hash = (search_rule_list query [] rules rules) in
-  Hashtbl.iter (fun x y -> if((has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
-  Printf.printf "%b\n" flag
+  List.iter print_test queries2
+  
 
 
 (* let testcases_replace = [
