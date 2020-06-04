@@ -1,5 +1,6 @@
 open Printf
 open Expr_type
+exception Out_of_loop
 
 let extract_filename s =
 	let len = String.length s in  
@@ -41,13 +42,6 @@ let rec make_list_of_rules arr =
           let result = (Parser.rule Lexer.scan lexbuf) in
           (*print_endline "Hello again";*)
           result::(make_list_of_rules t)
-	
-	
-
-(* let test_all () =
-  List.iter test_parser tss *)
-
-let query = FUNC("k", [VAR("Y")])
 
 let make_expr rule =
 	match rule with
@@ -59,19 +53,24 @@ let rule_printer rule = print_endline (Expr_type.string_of_rule rule)
 let test_file () =
   let input = print_string "> ";read_line () in 
   let filename = extract_filename input in 
-  let readcontent = load_file filename in 
+  let readcontent = load_file filename in
+  print_endline ("Successfully loaded " ^ filename);
   let test_list = String.split_on_char '\n' readcontent in 
   let rule_list = make_list_of_rules test_list in
-  let in_query = read_line () in 
-  let query_buf = Lexing.from_string in_query in
-  let query = make_expr (Parser.rule Lexer.scan query_buf) in
-(*  List.iter rule_printer global_arr in *)
-  let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
-  Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
-  Printf.printf "%b\n" flag
-(*  List.iter print_endline test_list; 
-  print_endline " ";
-  List.iter test_parser test_list *)
+  let one = ref true in
+  let zero = ref false in
+  while (!one) != (!zero)
+  do
+  	let in_query = print_string "?- "; read_line () in
+	if ((compare in_query "exit") = 0) then one := !zero
+	else
+	begin
+		let query_buf = Lexing.from_string in_query in
+  		let query = make_expr (Parser.rule Lexer.scan query_buf) in
+  		let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
+  		Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
+  		Printf.printf "%b\n" flag
+  	end
+  done
 
-(* let _ = test_all () *)
 let _ = test_file ()
