@@ -35,27 +35,39 @@ let test_parser s =
     Printf.printf "%s -> false\n" s
 
 let rec make_list_of_rules arr =
+(*	let len = List.length arr in
+	for i = 0 to (len-1)
+	do
+		let lexbuf = Lexing.from_string arr.[i] in 
+		let result = (Parser.rule Lexer.scan lexbuf) in
+		let global_arr = result::global_arr
+	done 
+	in (List.rev global_arr) *)	
+	
 	match arr with
 		[] -> []
-	|	h::t ->
-		begin
-			let lexbuf = Lexing.from_string h in
-			let result = (Parser.rule Lexer.scan lexbuf) in
-			let _ = result::global_arr in
-			make_list_of_rules t
-		end 
+	|	h::t -> let lexbuf = Lexing.from_string h in
+				(*print_endline "Hello";*)
+				let result = (Parser.rule Lexer.scan lexbuf) in
+				(*print_endline "Hello again";*)
+				result::(make_list_of_rules t)
+	
+	
 
 let test_all () =
   List.iter test_parser tss
 
 let query = FUNC("k", [VAR("Y")])
 
+let rule_printer rule = print_endline (Expr_type.string_of_rule rule)
+
 let test_file () =
   let input = print_string "> ";read_line () in 
   let filename = extract_filename input in 
   let readcontent = load_file filename in 
   let test_list = String.split_on_char '\n' readcontent in 
-  let rule_list = List.rev (make_list_of_rules test_list) in
+  let rule_list = make_list_of_rules test_list in
+(*  List.iter rule_printer global_arr in *)
   let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
   Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
   Printf.printf "%b\n" flag

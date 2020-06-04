@@ -1,7 +1,7 @@
 open Unified
 open Expr_type 
 
-type right = 
+(*type right = 
   | LEAF of Expr_type.expr
   | OR of right * right
   | AND of right * right
@@ -10,6 +10,7 @@ type right =
 type rule = 
   | HEAD of Expr_type.expr
   | NODE of Expr_type.expr * right
+*)
 
 let rec right_to_list right = 
   match right with 

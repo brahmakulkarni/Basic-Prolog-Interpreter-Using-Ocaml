@@ -1,5 +1,5 @@
-parser : lexer.cmx expr_type.cmx parser.cmx main.cmx
-	ocamlopt -o parser lexer.cmx expr_type.cmx parser.cmx search.cmx unified.cmx main.cmx
+parser : lexer.cmx expr_type.cmx parser.cmx unified.cmx search.cmx main.cmx
+	ocamlopt -o parser lexer.cmx expr_type.cmx parser.cmx unified.cmx search.cmx main.cmx
 
 lexer.cmx : parser.cmi lexer.ml
 	ocamlopt -c lexer.ml
