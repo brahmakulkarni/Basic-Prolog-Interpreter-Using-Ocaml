@@ -61,6 +61,11 @@ let test_all () =
 
 let query = FUNC("k", [VAR("Y")])
 
+let make_expr rule =
+	match rule with
+		HEAD(x) -> x
+	|	NODE(x,y) -> x
+
 let rule_printer rule = print_endline (Expr_type.string_of_rule rule)
 
 let test_file () =
@@ -69,6 +74,9 @@ let test_file () =
   let readcontent = load_file filename in 
   let test_list = String.split_on_char '\n' readcontent in 
   let rule_list = make_list_of_rules test_list in
+  let in_query = read_line () in 
+  let query_buf = Lexing.from_string in_query in
+  let query = make_expr (Parser.rule Lexer.scan query_buf) in
 (*  List.iter rule_printer global_arr in *)
   let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
   Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
