@@ -56,7 +56,6 @@ let test_file () =
   let readcontent = load_file filename in 
   let test_list = String.split_on_char '\n' readcontent in 
   let rule_list = List.rev (make_list_of_rules test_list) in
-  Printf.printf "here %s" (Search.string_list_of_rule rule_list);
   let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
   Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
   Printf.printf "%b\n" flag
