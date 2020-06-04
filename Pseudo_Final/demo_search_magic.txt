@@ -1,0 +1,392 @@
+RULES
+house_elf(dobby).
+witch(hermione).
+witch(McGonagall).
+witch(rita_skeeter).
+magic(X) :- house_elf(X).
+magic(X) :- wizard(X).
+magic(X) :- witch(X).
+-------------------------
+
+Query: magic(house_elf)
+Query: magic(house_elf) Goals: 
+?- house_elf(dobby) = magic(house_elf)
+false
+
+Query: magic(house_elf) Goals: 
+?- witch(hermione) = magic(house_elf)
+false
+
+Query: magic(house_elf) Goals: 
+?- witch(McGonagall) = magic(house_elf)
+false
+
+Query: magic(house_elf) Goals: 
+?- witch(rita_skeeter) = magic(house_elf)
+false
+
+Query: magic(house_elf) Goals: 
+?- magic(X) = magic(house_elf)
+X = house_elf
+true
+
+Query: house_elf(X) Goals: 
+?- house_elf(dobby) = house_elf(X)
+X = dobby
+true
+
+?- magic(house_elf) = magic(dobby)
+false
+
+Query: magic(house_elf) Goals: 
+?- magic(X) = magic(house_elf)
+X = house_elf
+true
+
+Query: wizard(X) Goals: 
+?- house_elf(dobby) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(hermione) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(McGonagall) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(rita_skeeter) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+Query: magic(house_elf) Goals: 
+?- magic(X) = magic(house_elf)
+X = house_elf
+true
+
+Query: witch(X) Goals: 
+?- house_elf(dobby) = witch(X)
+false
+
+Query: witch(X) Goals: 
+?- witch(hermione) = witch(X)
+X = hermione
+true
+
+?- magic(house_elf) = magic(hermione)
+false
+
+Query: magic(house_elf) Goals: 
+false
+
+
+-------------------------
+
+Query: wizard(harry)
+Query: wizard(harry) Goals: 
+?- house_elf(dobby) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- witch(hermione) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- witch(McGonagall) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- witch(rita_skeeter) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- magic(X) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- magic(X) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+?- magic(X) = wizard(harry)
+false
+
+Query: wizard(harry) Goals: 
+false
+
+
+-------------------------
+
+Query: magic(wizard)
+Query: magic(wizard) Goals: 
+?- house_elf(dobby) = magic(wizard)
+false
+
+Query: magic(wizard) Goals: 
+?- witch(hermione) = magic(wizard)
+false
+
+Query: magic(wizard) Goals: 
+?- witch(McGonagall) = magic(wizard)
+false
+
+Query: magic(wizard) Goals: 
+?- witch(rita_skeeter) = magic(wizard)
+false
+
+Query: magic(wizard) Goals: 
+?- magic(X) = magic(wizard)
+X = wizard
+true
+
+Query: house_elf(X) Goals: 
+?- house_elf(dobby) = house_elf(X)
+X = dobby
+true
+
+?- magic(wizard) = magic(dobby)
+false
+
+Query: magic(wizard) Goals: 
+?- magic(X) = magic(wizard)
+X = wizard
+true
+
+Query: wizard(X) Goals: 
+?- house_elf(dobby) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(hermione) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(McGonagall) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(rita_skeeter) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+Query: magic(wizard) Goals: 
+?- magic(X) = magic(wizard)
+X = wizard
+true
+
+Query: witch(X) Goals: 
+?- house_elf(dobby) = witch(X)
+false
+
+Query: witch(X) Goals: 
+?- witch(hermione) = witch(X)
+X = hermione
+true
+
+?- magic(wizard) = magic(hermione)
+false
+
+Query: magic(wizard) Goals: 
+false
+
+
+-------------------------
+
+Query: magic(McGonagall)
+Query: magic(McGonagall) Goals: 
+?- house_elf(dobby) = magic(McGonagall)
+false
+
+Query: magic(McGonagall) Goals: 
+?- witch(hermione) = magic(McGonagall)
+false
+
+Query: magic(McGonagall) Goals: 
+?- witch(McGonagall) = magic(McGonagall)
+false
+
+Query: magic(McGonagall) Goals: 
+?- witch(rita_skeeter) = magic(McGonagall)
+false
+
+Query: magic(McGonagall) Goals: 
+?- magic(X) = magic(McGonagall)
+X = McGonagall
+true
+
+Query: house_elf(X) Goals: 
+?- house_elf(dobby) = house_elf(X)
+X = dobby
+true
+
+?- magic(McGonagall) = magic(dobby)
+false
+
+Query: magic(McGonagall) Goals: 
+?- magic(X) = magic(McGonagall)
+X = McGonagall
+true
+
+Query: wizard(X) Goals: 
+?- house_elf(dobby) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(hermione) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(McGonagall) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(rita_skeeter) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+Query: magic(McGonagall) Goals: 
+?- magic(X) = magic(McGonagall)
+X = McGonagall
+true
+
+Query: witch(X) Goals: 
+?- house_elf(dobby) = witch(X)
+false
+
+Query: witch(X) Goals: 
+?- witch(hermione) = witch(X)
+X = hermione
+true
+
+?- magic(McGonagall) = magic(hermione)
+false
+
+Query: magic(McGonagall) Goals: 
+false
+
+
+-------------------------
+
+Query: magic(hermione)
+Query: magic(hermione) Goals: 
+?- house_elf(dobby) = magic(hermione)
+false
+
+Query: magic(hermione) Goals: 
+?- witch(hermione) = magic(hermione)
+false
+
+Query: magic(hermione) Goals: 
+?- witch(McGonagall) = magic(hermione)
+false
+
+Query: magic(hermione) Goals: 
+?- witch(rita_skeeter) = magic(hermione)
+false
+
+Query: magic(hermione) Goals: 
+?- magic(X) = magic(hermione)
+X = hermione
+true
+
+Query: house_elf(X) Goals: 
+?- house_elf(dobby) = house_elf(X)
+X = dobby
+true
+
+?- magic(hermione) = magic(dobby)
+false
+
+Query: magic(hermione) Goals: 
+?- magic(X) = magic(hermione)
+X = hermione
+true
+
+Query: wizard(X) Goals: 
+?- house_elf(dobby) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(hermione) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(McGonagall) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- witch(rita_skeeter) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+?- magic(X) = wizard(X)
+false
+
+Query: wizard(X) Goals: 
+Query: magic(hermione) Goals: 
+?- magic(X) = magic(hermione)
+X = hermione
+true
+
+Query: witch(X) Goals: 
+?- house_elf(dobby) = witch(X)
+false
+
+Query: witch(X) Goals: 
+?- witch(hermione) = witch(X)
+X = hermione
+true
+
+?- magic(hermione) = magic(hermione)
+true
+
+true
+
+
+-------------------------
+

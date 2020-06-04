@@ -54,6 +54,15 @@ let rules2 = [
   NODE(FUNC("jealous",[VAR("A");VAR("B")]),AND(LEAF(FUNC("loves",[VAR("A");VAR("C")])),LEAF(FUNC("loves",[VAR("B");VAR("C")])))) ;
 ]
 
+let rules3 = [
+  HEAD(FUNC("house_elf",[CONST(IDEN("dobby"))])) ;
+  HEAD(FUNC("witch",[CONST(IDEN("hermione"))])) ;
+  HEAD(FUNC("witch",[CONST(IDEN("McGonagall"))])) ;
+  HEAD(FUNC("witch",[CONST(IDEN("rita_skeeter"))])) ;
+  NODE(FUNC("magic",[VAR("X")]),LEAF(FUNC("house_elf",[VAR("X")]))) ;
+  NODE(FUNC("magic",[VAR("X")]),LEAF(FUNC("wizard",[VAR("X")]))) ;
+  NODE(FUNC("magic",[VAR("X")]),LEAF(FUNC("witch",[VAR("X")]))) ;
+]
 (* let search_rules query rules =  *)
 
 let queries1 = [
@@ -64,6 +73,14 @@ let queries1 = [
 
 let queries2 = [
   FUNC("jealous",[VAR("X");VAR("Y")]) ;
+]
+
+let queries3 = [
+  FUNC("magic",[CONST(IDEN("house_elf"))]) ;
+  FUNC("wizard",[CONST(IDEN("harry"))]) ;
+  FUNC("magic",[CONST(IDEN("wizard"))]) ;
+  FUNC("magic",[CONST(IDEN("McGonagall"))]) ;
+  FUNC("magic",[CONST(IDEN("hermione"))]) ;
 ]
 
 (* Variable mapping (Comes from unification)
@@ -132,12 +149,12 @@ let rec search_rule_list query goal_list sub_rules rules =
         else
           let new_head = (replace_var_hash head tail_hash) in
           let new_flag,new_unified_hash = (Unified.unifier query new_head) in
-          (* if(new_flag = false) then Printf.printf "DUMB SHITE ERROR. THIS SHOULD NEVER OCCUR\n"; *)
-          (*new_flag is true because flag is true*)
-          let new_goal_list = (replace_var_hash_list goal_list new_unified_hash) in
-          let new_flag_goal, new_goal_hash = (search_goal_list new_goal_list new_unified_hash rules rules) in
-          if(new_flag_goal = false) then (search_rule_list query goal_list t rules)
-          else new_flag_goal,new_goal_hash 
+          if(new_flag = false) then (search_rule_list query goal_list t rules)
+          else
+            let new_goal_list = (replace_var_hash_list goal_list new_unified_hash) in
+            let new_flag_goal, new_goal_hash = (search_goal_list new_goal_list new_unified_hash rules rules) in
+            if(new_flag_goal = false) then (search_rule_list query goal_list t rules)
+            else new_flag_goal,new_goal_hash 
           
 
 and search_goal_list goal_list orig_hash sub_rules rules = 
@@ -160,42 +177,14 @@ and search_right right empty_hash sub_rules rules =
 
 let print_test query = 
   Printf.printf "Query: %s\n" (string_of_expr query);
-  let flag,hash = (search_rule_list query [] rules1 rules1) in 
+  let flag,hash = (search_rule_list query [] rules3 rules3) in 
   Hashtbl.iter (fun x y -> if((has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
   Printf.printf "%b\n" flag;
   Printf.printf "\n\n-------------------------\n\n"
 
 let test_rule_list () = 
-  Printf.printf "RULES\n%s-------------------------\n\n" (string_list_of_rule rules1);
-  List.iter print_test queries1
+  Printf.printf "RULES\n%s-------------------------\n\n" (string_list_of_rule rules3);
+  List.iter print_test queries3
   
 
-
-(* let testcases_replace = [
-  FUNC("a",[FUNC("f",[VAR("Y")])]),"Y",CONST(NUM(1)) ;
-  FUNC("a",[FUNC("f",[VAR("Y")])]),"Y",FUNC("g",[CONST(NUM(1))])  ;
-] *)
-
-(* let print_rule x = 
-  Printf.printf "%s\n" ((string_of_rule x) ^ ".")
-
-let test_all () = 
-  List.iter print_rule rules
-
-let tester_replace a =
-  let x,y,z = a in
-  Printf.printf "Expr:%s Var:%s Value:%s Final:%s\n" (string_of_expr x) y (string_of_expr z) (string_of_expr (replace_var_expr x y z))
-
-let test_replace () = 
-  List.iter tester_replace testcases_replace *)
-
-(* let debug () = 
-  let a = (Unified.unifier (VAR("X")) (VAR("X"))) in 
-  let b,c = a in
-  Printf.printf "Value: %b\n" b
-
-let _ = debug () *)
-
-(* let _  = test_all () *)
-(* let _ = test_replace () *)
 let _ = test_rule_list ()
