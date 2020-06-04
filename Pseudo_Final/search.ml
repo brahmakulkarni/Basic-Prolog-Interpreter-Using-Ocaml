@@ -30,6 +30,11 @@ let rec string_of_rule rule =
   | NODE(x,y) ->
     (Unified.string_of_expr x) ^ " :- " ^ (string_of_right y) 
 
+let rec string_list_of_rule rules = 
+  match rules with 
+  | [] -> ""
+  | h :: t -> (string_of_rule h) ^ "\n" ^ (string_list_of_rule t)
+
 let rules1 = [
   HEAD(FUNC("f",[CONST(IDEN("a"))])) ;
   HEAD(FUNC("f",[CONST(IDEN("b"))])) ;
@@ -155,13 +160,14 @@ and search_right right empty_hash sub_rules rules =
 
 let print_test query = 
   Printf.printf "Query: %s\n" (string_of_expr query);
-  let flag,hash = (search_rule_list query [] rules2 rules2) in 
+  let flag,hash = (search_rule_list query [] rules1 rules1) in 
   Hashtbl.iter (fun x y -> if((has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
   Printf.printf "%b\n" flag;
   Printf.printf "\n\n-------------------------\n\n"
 
 let test_rule_list () = 
-  List.iter print_test queries2
+  Printf.printf "RULES\n%s-------------------------\n\n" (string_list_of_rule rules1);
+  List.iter print_test queries1
   
 
 

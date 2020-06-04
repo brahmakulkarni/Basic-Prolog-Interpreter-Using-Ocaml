@@ -1,0 +1,184 @@
+RULES
+f(a)
+f(b)
+g(a)
+g(b)
+h(b)
+k(X) :- f(X) , g(X) , h(X)
+-------------------------
+
+Query: k(Y)
+Query: k(Y) Goals: 
+?- f(a) = k(Y)
+false
+
+Query: k(Y) Goals: 
+?- f(b) = k(Y)
+false
+
+Query: k(Y) Goals: 
+?- g(a) = k(Y)
+false
+
+Query: k(Y) Goals: 
+?- g(b) = k(Y)
+false
+
+Query: k(Y) Goals: 
+?- h(b) = k(Y)
+false
+
+Query: k(Y) Goals: 
+?- k(X) = k(Y)
+X = Y
+true
+
+Query: f(X) Goals: g(X), h(X)
+?- f(a) = f(X)
+X = a
+true
+
+Query: g(a) Goals: h(a)
+?- f(a) = g(a)
+false
+
+Query: g(a) Goals: h(a)
+?- f(b) = g(a)
+false
+
+Query: g(a) Goals: h(a)
+?- g(a) = g(a)
+true
+
+Query: h(a) Goals: 
+?- f(a) = h(a)
+false
+
+Query: h(a) Goals: 
+?- f(b) = h(a)
+false
+
+Query: h(a) Goals: 
+?- g(a) = h(a)
+false
+
+Query: h(a) Goals: 
+?- g(b) = h(a)
+false
+
+Query: h(a) Goals: 
+?- h(b) = h(a)
+false
+
+Query: h(a) Goals: 
+?- k(X) = h(a)
+false
+
+Query: h(a) Goals: 
+Query: g(a) Goals: h(a)
+?- g(b) = g(a)
+false
+
+Query: g(a) Goals: h(a)
+?- h(b) = g(a)
+false
+
+Query: g(a) Goals: h(a)
+?- k(X) = g(a)
+false
+
+Query: g(a) Goals: h(a)
+Query: f(X) Goals: g(X), h(X)
+?- f(b) = f(X)
+X = b
+true
+
+Query: g(b) Goals: h(b)
+?- f(a) = g(b)
+false
+
+Query: g(b) Goals: h(b)
+?- f(b) = g(b)
+false
+
+Query: g(b) Goals: h(b)
+?- g(a) = g(b)
+false
+
+Query: g(b) Goals: h(b)
+?- g(b) = g(b)
+true
+
+Query: h(b) Goals: 
+?- f(a) = h(b)
+false
+
+Query: h(b) Goals: 
+?- f(b) = h(b)
+false
+
+Query: h(b) Goals: 
+?- g(a) = h(b)
+false
+
+Query: h(b) Goals: 
+?- g(b) = h(b)
+false
+
+Query: h(b) Goals: 
+?- h(b) = h(b)
+true
+
+?- k(Y) = k(b)
+Y = b
+true
+
+Y = b
+true
+
+
+-------------------------
+
+Query: g(C)
+Query: g(C) Goals: 
+?- f(a) = g(C)
+false
+
+Query: g(C) Goals: 
+?- f(b) = g(C)
+false
+
+Query: g(C) Goals: 
+?- g(a) = g(C)
+false
+
+Query: g(C) Goals: 
+?- g(b) = g(C)
+false
+
+Query: g(C) Goals: 
+?- h(b) = g(C)
+false
+
+Query: g(C) Goals: 
+?- k(X) = g(C)
+false
+
+Query: g(C) Goals: 
+false
+
+
+-------------------------
+
+Query: Y
+Query: Y Goals: 
+?- f(a) = Y
+Y = f(a)
+true
+
+Y = f(a)
+true
+
+
+-------------------------
+
