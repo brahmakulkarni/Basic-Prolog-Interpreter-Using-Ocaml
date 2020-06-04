@@ -33,7 +33,7 @@ let rec string_of_rule rule =
 let rec string_list_of_rule rules = 
   match rules with 
   | [] -> ""
-  | h :: t -> (string_of_rule h) ^ "\n" ^ (string_list_of_rule t)
+  | h :: t -> (string_of_rule h) ^ ".\n" ^ (string_list_of_rule t)
 
 let rules1 = [
   HEAD(FUNC("f",[CONST(IDEN("a"))])) ;
