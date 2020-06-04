@@ -44,8 +44,8 @@ let rec make_list_of_rules arr =
 	
 	
 
-let test_all () =
-  List.iter test_parser tss
+(* let test_all () =
+  List.iter test_parser tss *)
 
 let query = FUNC("k", [VAR("Y")])
 
