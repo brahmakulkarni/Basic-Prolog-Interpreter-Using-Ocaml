@@ -1,13 +1,3 @@
-(* type constant =
-  | NUM of int
-  | IDEN of string
-
-type expr = 
-  | VAR of string
-  | CONST of constant
-  | FUNC of string * expr list
-*)
-
 open Expr_type
 
 type pair_expr = expr * expr
