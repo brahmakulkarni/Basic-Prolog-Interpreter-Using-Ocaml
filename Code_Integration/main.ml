@@ -12,18 +12,6 @@ let load_file s =
 	let file_content = really_input_string input_file (in_channel_length input_file) in file_content
 
 
-let tss = [
-  "1"        ; 
-  "hello"    ;
-  "X";
-  "man(brahma)" ; (* <error> *)
-  "loves(rathin,ram)"    ;
-  "vertical(line(point(1, 2), point(1, 3)))";
-  "jealous(X,Y) :- loves(X,Z), loves(Y,Z)";
-  "brahma :- kulkarni";
-  "happy(X) :- !sad(X)";
-]
-
 let global_arr = []
 
 let test_parser s =
