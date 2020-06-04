@@ -83,58 +83,58 @@ and has_list_var expr list1 =
     else (has_list_var expr t)
 
 
-let rec search_rule_list query goal_list sub_rules rules = 
-  Printf.printf "Query: %s Goals: %s\n" (string_of_expr query) (string_of_list goal_list);
-  let empty_hash = Hashtbl.create 1000 in
-  match sub_rules with 
-  | [] -> false,empty_hash
-  | h :: t ->
-    match h with
-    | HEAD(x) ->
-      let flag,unified_hash = (Unified.unifier x query) in
-      if (flag = false) then (search_rule_list query goal_list t rules) 
-      else 
-        let new_goal_list = (replace_var_hash_list goal_list unified_hash) in
-        let flag_goal,goal_hash = (search_goal_list new_goal_list unified_hash rules rules) in
-        if(flag_goal = false) then (search_rule_list query goal_list t rules)
-        else flag_goal,goal_hash 
-        
-    | NODE(head,tail) ->
-      let flag,unified_hash = (Unified.unifier head query) in
-      if (flag = false) then (search_rule_list query goal_list t rules) 
-      else 
-        let flag_tail,tail_hash = (search_right tail empty_hash rules rules) in
-        Printf.printf "Query: %s Head: %s Tail: %s flag_tail: %b\n" (string_of_expr query) (string_of_expr head) (string_of_right tail) flag_tail;
-        if(flag_tail = false) then (search_rule_list query goal_list t rules)
-        else
-          let new_head = (replace_var_hash head tail_hash) in
-          let new_flag,new_unified_hash = (Unified.unifier query new_head) in
-          (* if(new_flag = false) then Printf.printf "DUMB SHITE ERROR. THIS SHOULD NEVER OCCUR\n"; *)
-          (*new_flag is true because flag is true*)
-          let new_goal_list = (replace_var_hash_list goal_list new_unified_hash) in
-          let new_flag_goal, new_goal_hash = (search_goal_list new_goal_list new_unified_hash rules rules) in
-          if(new_flag_goal = false) then (search_rule_list query goal_list t rules)
-          else new_flag_goal,new_goal_hash 
-          
-
-and search_goal_list goal_list orig_hash sub_rules rules = 
-  match goal_list with 
-  | [] -> true,orig_hash
-  | h :: t -> 
-    let flag_tail,tail_hash = (search_rule_list h t rules rules) in
-    (*Unionify the hash tables*)
-    if(flag_tail = true) then 
-    begin
-      Hashtbl.iter (fun x y -> Hashtbl.add orig_hash x y) tail_hash;
-      true,orig_hash
-    end
-    (*Doesn't really matter which hash_table we return*)
-    else flag_tail,tail_hash 
-
-and search_right right empty_hash sub_rules rules = 
-  let goal_list = (right_to_list right) in
-  search_goal_list goal_list empty_hash rules rules
-
+    let rec search_rule_list query goal_list sub_rules rules = 
+      Printf.printf "Query: %s Goals: %s\n" (string_of_expr query) (string_of_list goal_list);
+      let empty_hash = Hashtbl.create 1000 in
+      match sub_rules with 
+      | [] -> false,empty_hash
+      | h :: t ->
+        match h with
+        | HEAD(x) ->
+          let flag,unified_hash = (Unified.unifier x query) in
+          if (flag = false) then (search_rule_list query goal_list t rules) 
+          else 
+            let new_goal_list = (replace_var_hash_list goal_list unified_hash) in
+            let flag_goal,goal_hash = (search_goal_list new_goal_list unified_hash rules rules) in
+            if(flag_goal = false) then (search_rule_list query goal_list t rules)
+            else flag_goal,goal_hash 
+            
+        | NODE(head,tail) ->
+          let flag,unified_hash = (Unified.unifier head query) in
+          if (flag = false) then (search_rule_list query goal_list t rules) 
+          else 
+            let flag_tail,tail_hash = (search_right tail empty_hash rules rules) in
+            (* Printf.printf "Query: %s Head: %s Tail: %s flag_tail: %b\n" (string_of_expr query) (string_of_expr head) (string_of_right tail) flag_tail; *)
+            if(flag_tail = false) then (search_rule_list query goal_list t rules)
+            else
+              let new_head = (replace_var_hash head tail_hash) in
+              let new_flag,new_unified_hash = (Unified.unifier query new_head) in
+              if(new_flag = false) then (search_rule_list query goal_list t rules)
+              else
+                let new_goal_list = (replace_var_hash_list goal_list new_unified_hash) in
+                let new_flag_goal, new_goal_hash = (search_goal_list new_goal_list new_unified_hash rules rules) in
+                if(new_flag_goal = false) then (search_rule_list query goal_list t rules)
+                else new_flag_goal,new_goal_hash 
+              
+    
+    and search_goal_list goal_list orig_hash sub_rules rules = 
+      match goal_list with 
+      | [] -> true,orig_hash
+      | h :: t -> 
+        let flag_tail,tail_hash = (search_rule_list h t rules rules) in
+        (*Unionify the hash tables*)
+        if(flag_tail = true) then 
+        begin
+          Hashtbl.iter (fun x y -> Hashtbl.add orig_hash x y) tail_hash;
+          true,orig_hash
+        end
+        (*Doesn't really matter which hash_table we return*)
+        else flag_tail,tail_hash 
+    
+    and search_right right empty_hash sub_rules rules = 
+      let goal_list = (right_to_list right) in
+      search_goal_list goal_list empty_hash rules rules
+    
 
 (* let test_rule_list () = 
   let flag,hash = (search_rule_list query [] rules rules) in
