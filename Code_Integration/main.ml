@@ -50,6 +50,21 @@ let make_expr rule =
 
 let rule_printer rule = print_endline (Expr_type.string_of_rule rule)
 
+let has_eq str = 
+  let n = String.length str in
+  let rec finder index str = 
+    if(index = n) then false
+    else
+      if((String.get str index) = '=') then true
+      else (finder (index+1) str)
+  in finder 0 str
+
+let call_unifier str1 str2 = 
+  let query1 = make_expr(Parser.rule Lexer.scan (Lexing.from_string str1)) in 
+  let query2 = make_expr(Parser.rule Lexer.scan (Lexing.from_string str2)) in 
+  ignore(Unified.unifier query1 query2);
+  ()
+
 let test_file () =
   let input = print_string "> ";read_line () in 
   let filename = extract_filename input in 
@@ -61,16 +76,19 @@ let test_file () =
   let zero = ref false in
   while (!one) != (!zero)
   do
-  	let in_query = print_string "?- "; read_line () in
-	if ((compare in_query "exit") = 0) then one := !zero
-	else
-	begin
-		let query_buf = Lexing.from_string in_query in
-  		let query = make_expr (Parser.rule Lexer.scan query_buf) in
-  		let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
-  		Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
-  		Printf.printf "%b\n" flag
-  	end
+    let in_query = print_string "?- "; read_line () in
+    let l = (String.split_on_char '=' in_query) in
+    if((List.length l) = 2) then (call_unifier (List.nth l 0) (List.nth l 1))
+    else 
+    if ((compare in_query "exit") = 0) then one := !zero
+    else
+    begin
+      let query_buf = Lexing.from_string in_query in
+      let query = make_expr (Parser.rule Lexer.scan query_buf) in
+      let flag, hash = (Search.search_rule_list query [] rule_list rule_list) in
+      Hashtbl.iter (fun x y -> if((Search.has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
+      Printf.printf "%b\n" flag
+    end
   done
 
 let _ = test_file ()

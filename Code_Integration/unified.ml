@@ -52,7 +52,6 @@ and string_of_list list1 =
 let unifier s t = 
   let var_exp = Hashtbl.create 1000 in
   let rec rec_match s t = 
-    (* Printf.printf "Debug: %s and %s\n" (string_of_expr s) (string_of_expr t); *)
     match (s,t) with 
     | CONST(a),CONST(b) -> a = b
 
