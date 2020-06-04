@@ -25,22 +25,22 @@ parser.cmx : lexer.cmx expr_type.cmi parser.ml
 expr_type.cmx : expr_type.cmi expr_type.ml
 	ocamlopt -c expr_type.ml
 
-expr_type.cmi : expr_type.mli
+expr_type.cmi : expr_type.mli 
 	ocamlc -c expr_type.mli
 
-main.cmx : parser.cmi lexer.cmx search.cmi main.ml
+main.cmx : parser.cmi lexer.cmx search.cmi main.ml unified.cmi search.cmi
 	ocamlopt -c main.ml
 
-search.cmx : unified.cmi search.ml
+search.cmx : unified.cmi search.ml expr_type.cmi 
 	ocamlopt -c search.ml
 
-search.cmi : unified.cmi search.ml
+search.cmi : unified.cmi search.ml expr_type.cmi 
 	ocamlopt -c search.ml
 
-unified.cmx : unified.ml
+unified.cmx : unified.ml parser.cmi expr_type.cmi 
 	ocamlopt -c unified.ml
 
-unified.cmi : unified.ml
+unified.cmi : unified.ml parser.cmi expr_type.cmi 
 	ocamlopt -c unified.ml
 
 clean:

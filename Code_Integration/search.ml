@@ -32,6 +32,11 @@ let rec string_of_rule rule =
   | NODE(x,y) ->
     (Expr_type.string_of_expr x) ^ " :- " ^ (string_of_right y) 
 
+let rec string_list_of_rule rules = 
+  match rules with 
+  | [] -> ""
+  | h :: t -> (string_of_rule h) ^ ".\n" ^ (string_list_of_rule t)
+  
 let rules = [
   HEAD(FUNC("f",[CONST(IDEN("a"))])) ;
   HEAD(FUNC("f",[CONST(IDEN("b"))])) ;
