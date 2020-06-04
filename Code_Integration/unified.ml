@@ -83,7 +83,7 @@ let unifier s t =
             compute_list tail1 tail2
           end
         in compute_list list1 list2;
-        if(flag = flag_true) then true
+        if(!flag = !flag_true) then true
         else false 
     end
     | _ -> false
