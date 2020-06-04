@@ -46,11 +46,13 @@ let rec make_list_of_rules arr =
 	
 	match arr with
 		[] -> []
-	|	h::t -> let lexbuf = Lexing.from_string h in
-				(*print_endline "Hello";*)
-				let result = (Parser.rule Lexer.scan lexbuf) in
-				(*print_endline "Hello again";*)
-				result::(make_list_of_rules t)
+  |	h::t -> 
+        if((compare h) "" = 0) then []
+        else
+          let lexbuf = Lexing.from_string h in
+          let result = (Parser.rule Lexer.scan lexbuf) in
+          (*print_endline "Hello again";*)
+          result::(make_list_of_rules t)
 	
 	
 
