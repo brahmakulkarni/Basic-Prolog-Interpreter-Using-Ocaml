@@ -106,7 +106,7 @@ let rec has_var expr =
   match expr with 
   | VAR(x) -> true
   | CONST(x) -> false
-  | FUNC(x,y) -> (has_list_vat expr y)
+  | FUNC(x,y) -> (has_list_var expr y)
 and has_list_var expr list1 = 
   match list1 with
   | [] -> false
