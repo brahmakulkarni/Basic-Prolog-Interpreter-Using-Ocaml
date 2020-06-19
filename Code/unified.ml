@@ -1,11 +1,4 @@
-type constant =
-  | NUM of int
-  | IDEN of string
-
-type expr = 
-  | VAR of string
-  | CONST of constant
-  | FUNC of string * expr list
+open Expr_type
 
 type pair_expr = expr * expr
 
@@ -58,8 +51,7 @@ and string_of_list list1 =
 
 let unifier s t = 
   let var_exp = Hashtbl.create 1000 in
-  let rec rec_match s t = 
-    (* Printf.printf "Debug: %s and %s\n" (string_of_expr s) (string_of_expr t); *)
+  let rec rec_match s t =
     match (s,t) with 
     | CONST(a),CONST(b) -> a = b
 
@@ -90,14 +82,13 @@ let unifier s t =
             compute_list tail1 tail2
           end
         in compute_list list1 list2;
-        if(flag = flag_true) then true
+        if(!flag = !flag_true) then true
         else false 
     end
     | _ -> false
   in 
   let flag = rec_match s t in
-  Printf.printf "?- %s = %s\n" (string_of_expr s) (string_of_expr t);  
-  (* Printf.printf "Hashtable size: %d\n" (Hashtbl.length var_exp); *)
+  Printf.printf "?- %s = %s\n" (string_of_expr s) (string_of_expr t);
   if(flag) then
   begin
     Hashtbl.iter (fun x y -> Printf.printf "%s = %s\n" x (string_of_expr y)) var_exp ;
@@ -115,16 +106,3 @@ let unify_pair a = begin match a with x,y -> ignore((unifier x y)); () end
 let test_all () = 
   List.iter unify_pair tests 
 
-let _ = test_all ()
-let a = (unifier (VAR("X")) (VAR("X"))) in a
-(* 
-let d = Hashtbl.create 1000 in 
-let rec f counter  = 
-  if(counter > 5) then ()
-  else
-  begin
-    Hashtbl.add d counter (counter+1);
-    f (counter+1)
-  end
-in f 0;
-Hashtbl.iter (fun x y -> Printf.printf "%d -> %d \n" x y) d *)

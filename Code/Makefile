@@ -4,9 +4,6 @@ parser : lexer.cmx expr_type.cmx parser.cmx unified.cmx search.cmx main.cmx
 lexer.cmx : parser.cmi lexer.ml
 	ocamlopt -c lexer.ml
 
-# lexer.cmi : parser.cmi lexer.ml
-# 	ocamlopt -c lexer.ml
-
 lexer.ml : lexer.mll
 	ocamllex lexer.mll
 

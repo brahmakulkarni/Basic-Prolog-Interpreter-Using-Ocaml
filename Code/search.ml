@@ -134,39 +134,3 @@ and has_list_var expr list1 =
     and search_right right empty_hash sub_rules rules = 
       let goal_list = (right_to_list right) in
       search_goal_list goal_list empty_hash rules rules
-    
-
-(* let test_rule_list () = 
-  let flag,hash = (search_rule_list query [] rules rules) in
-  Hashtbl.iter (fun x y -> if((has_var y)) then () else Printf.printf "%s = %s\n" x (string_of_expr y)) hash;
-  Printf.printf "%b\n" flag
-*)
-
-(* let testcases_replace = [
-  FUNC("a",[FUNC("f",[VAR("Y")])]),"Y",CONST(NUM(1)) ;
-  FUNC("a",[FUNC("f",[VAR("Y")])]),"Y",FUNC("g",[CONST(NUM(1))])  ;
-] *)
-
-(* let print_rule x = 
-  Printf.printf "%s\n" ((string_of_rule x) ^ ".")
-
-let test_all () = 
-  List.iter print_rule rules
-
-let tester_replace a =
-  let x,y,z = a in
-  Printf.printf "Expr:%s Var:%s Value:%s Final:%s\n" (string_of_expr x) y (string_of_expr z) (string_of_expr (replace_var_expr x y z))
-
-let test_replace () = 
-  List.iter tester_replace testcases_replace *)
-
-(* let debug () = 
-  let a = (Unified.unifier (VAR("X")) (VAR("X"))) in 
-  let b,c = a in
-  Printf.printf "Value: %b\n" b
-
-let _ = debug () *)
-
-(* let _  = test_all () *)
-(* let _ = test_replace () *)
-(* let _ = test_rule_list () *)
